@@ -1,0 +1,209 @@
+======================================================================
+
+Replit에게 전달할 프로젝트 제작 요청서 (복붙용)
+프로젝트 이름
+
+Vanilla Community + Selenium UI Automation
+
+프로젝트 목적
+
+Node.js + Vanilla JS로 최소 기능 커뮤니티 플랫폼 제작
+
+Selenium으로 UI 자동화 테스트가 가능하도록 설계
+
+비동기 fetch 통신 기반의 실제 API 서버 포함
+
+1. 기술 스택 요구사항
+
+백엔드: Node.js + Express
+
+DB: JSON 파일 기반 (users.json, posts.json)
+
+프론트엔드: 순수 HTML/CSS/JavaScript
+
+테스트: Selenium(Python) 스크립트 예제 포함
+
+실행: node server.js 로 API + 프론트 전체 실행 가능
+
+2. 기능 요구사항
+2-1. 회원가입
+
+페이지: /signup.html
+
+입력값: id, password
+
+검증: 중복 ID 방지
+
+성공 → /login.html로 이동
+
+API: POST /api/signup (JSON body)
+
+2-2. 로그인
+
+페이지: /login.html
+
+입력값: id, password
+
+성공 시 cookie 또는 session-like 처리 후 /index.html 이동
+
+로그인 실패 케이스 메시지 표시 필요
+
+API: POST /api/login
+
+2-3. 로그인 후 랜딩 페이지
+
+페이지: /index.html
+
+구성 요소:
+
+로그인한 사용자명 표시 (네비바)
+
+최근 게시글 5개 노출 (페이지네이션 없음)
+
+API: GET /api/posts?limit=5
+
+2-4. 게시글 Read 기능
+
+페이지: /detail.html?id={postId}
+
+제목 / 내용 표시
+
+API: GET /api/posts/:id
+
+CRUD는 훗날 확장할 수 있도록 구조만 준비.
+
+2-5. 검색 기능
+
+페이지: /search.html
+
+입력창 + 검색 버튼
+
+비동기 fetch로 검색 결과 리스트 렌더링
+
+API: GET /api/posts/search?q={keyword}
+
+결과 중 하나 클릭 → detail 페이지 이동
+
+3. UI 요구사항
+3-1. Dark / Light Theme 토글
+
+모든 페이지 상단 네비바에 테마 스위치 버튼
+
+body.class = "dark" / "light"
+
+localStorage에 저장
+
+토글 전/후 UI가 즉시 바뀌어야 함
+
+3-2. 로그인 전/후 UI 차이
+
+로그인 전: 네비바 → “회원가입 / 로그인”
+
+로그인 후: 네비바 → “{username} / 로그아웃”
+
+DOM 변경이 명확히 일어나도록 구성
+
+4. 비동기 통신 요구사항
+
+모든 데이터 요청은 fetch API 사용
+
+HTML 파일은 Express static으로 서빙
+
+DOM 변화가 일어나도록 비동기 렌더링 구조로 작성
+(검색, 목록, 테마 변경 등)
+
+5. 서버 API 명세
+회원
+POST /api/signup
+
+body: { id, password }
+
+POST /api/login
+
+body: { id, password }
+
+게시물
+GET /api/posts?limit=5
+
+최근 게시글 5개
+
+GET /api/posts
+
+전체 목록
+
+GET /api/posts/:id
+
+단건 조회
+
+GET /api/posts/search?q=키워드
+
+검색 기능
+
+6. Selenium UI 자동화 테스트 요구사항
+6-1. 회원가입 테스트
+
+정상 입력 → 성공 assert
+
+중복 ID → 실패 assert
+
+6-2. 로그인 테스트
+
+잘못된 비밀번호 → 실패 메시지 assert
+
+정상 로그인 → index.html 이동 assert
+
+6-3. UI 변화 테스트
+
+로그인 전/후 네비바 상태 assert
+
+Dark/Light theme toggle 후 body.class assert
+
+6-4. 검색 테스트
+
+검색 입력 → 비동기 결과 렌더링 확인
+
+검색 결과 클릭 → detail 페이지 이동 assert
+
+DOM 변화에 대해 Selenium wait.until 사용
+
+6-5. 스크린샷 테스트
+
+save_screenshot()으로 주요 단계를 파일로 저장
+
+로그인 전/로그인 후 UI 스크린샷
+
+Dark/Light 테마 before/after 스크린샷
+
+7. 파일/폴더 구조 요구사항 (Replit에서 그대로 생성)
+project/
+ ├─ server.js
+ ├─ db/
+ │   ├─ users.json
+ │   └─ posts.json
+ ├─ public/
+ │   ├─ index.html
+ │   ├─ login.html
+ │   ├─ signup.html
+ │   ├─ detail.html
+ │   ├─ search.html
+ │   ├─ styles.css
+ │   ├─ navbar.js
+ │   ├─ theme.js
+ │   └─ api.js (fetch wrapper)
+ └─ tests/
+     ├─ test_signup.py
+     ├─ test_login.py
+     ├─ test_search.py
+     ├─ test_theme.py
+     └─ utils.py
+
+8. 실행 방식 요구
+
+node server.js 실행 시
+
+API 서버 + static HTML 서빙
+
+tests/ 폴더의 Python Selenium 코드 실행 가능하도록 구성
+(크롬드라이버 포함 또는 WebDriverManager)
+
+======================================================================
