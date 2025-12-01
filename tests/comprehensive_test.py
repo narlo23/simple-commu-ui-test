@@ -265,7 +265,16 @@ def test_comprehensive_flow():
         
         # 검색 결과 확인
         for i, result in enumerate(search_results, 1):
-            title = result.find_element(By.TAG_NAME, "h3").text
+            try:
+                # data-testid="text-post-title" 속성으로 제목 찾기
+                title_elem = result.find_element(By.CSS_SELECTOR, '[data-testid^="text-post-title-"]')
+                title = title_elem.text
+            except:
+                # 실패하면 h2 시도
+                try:
+                    title = result.find_element(By.TAG_NAME, "h2").text
+                except:
+                    title = "제목 없음"
             print(f"    - {i}번 결과: {title[:40]}...")
         
         print_step(4, "검색 결과가 'React' 키워드를 포함하는지 확인")
