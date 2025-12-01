@@ -24,34 +24,34 @@ def test_signup_success():
     driver = get_driver()
     
     try:
-        log_test_step("Navigating to signup page")
+        # log_test_step("Navigating to signup page")
         navigate_to(driver, "/signup")
-        save_screenshot(driver, "signup_page")
+        # save_screenshot(driver, "signup_page")
         
-        log_test_step("Generating unique username and password")
+        # log_test_step("Generating unique username and password")
         username = generate_unique_username()
         password = "testpass123"
         
-        log_test_step(f"Entering username: {username}")
+        # log_test_step(f"Entering username: {username}")
         type_text(driver, "input-username", username)
         type_text(driver, "input-password", password)
         type_text(driver, "input-confirm-password", password)
         
-        save_screenshot(driver, "signup_form_filled")
+        # save_screenshot(driver, "signup_form_filled")
         
-        log_test_step("Clicking signup submit button")
+        # log_test_step("Clicking signup submit button")
         click_element(driver, "button-signup-submit")
         
-        log_test_step("Waiting for redirect to home page")
+        # log_test_step("Waiting for redirect to home page")
         wait_for_url_contains(driver, "/")
         time.sleep(1)
         
-        log_test_step("Verifying username appears in navbar")
+        # log_test_step("Verifying username appears in navbar")
         username_element = wait_for_element(driver, "text-username")
         assert username in username_element.text, f"Expected username '{username}' in navbar"
         
-        save_screenshot(driver, "signup_success")
-        logger.info(f"SUCCESS: User '{username}' registered successfully")
+        # save_screenshot(driver, "signup_success")
+        # logger.info(f"SUCCESS: User '{username}' registered successfully")
         
     finally:
         driver.quit()
