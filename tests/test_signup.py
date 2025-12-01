@@ -13,7 +13,9 @@ from utils import (
     generate_unique_username,
     navigate_to,
     clear_session,
-    BASE_URL
+    BASE_URL,
+    log_test_step,
+    logger
 )
 
 
@@ -22,28 +24,34 @@ def test_signup_success():
     driver = get_driver()
     
     try:
+        log_test_step("Navigating to signup page")
         navigate_to(driver, "/signup")
         save_screenshot(driver, "signup_page")
         
+        log_test_step("Generating unique username and password")
         username = generate_unique_username()
         password = "testpass123"
         
+        log_test_step(f"Entering username: {username}")
         type_text(driver, "input-username", username)
         type_text(driver, "input-password", password)
         type_text(driver, "input-confirm-password", password)
         
         save_screenshot(driver, "signup_form_filled")
         
+        log_test_step("Clicking signup submit button")
         click_element(driver, "button-signup-submit")
         
+        log_test_step("Waiting for redirect to home page")
         wait_for_url_contains(driver, "/")
         time.sleep(1)
         
+        log_test_step("Verifying username appears in navbar")
         username_element = wait_for_element(driver, "text-username")
         assert username in username_element.text, f"Expected username '{username}' in navbar"
         
         save_screenshot(driver, "signup_success")
-        print(f"SUCCESS: User '{username}' registered successfully")
+        logger.info(f"SUCCESS: User '{username}' registered successfully")
         
     finally:
         driver.quit()
@@ -54,6 +62,7 @@ def test_signup_duplicate_id():
     driver = get_driver()
     
     try:
+        log_test_step("First signup attempt - Creating account")
         navigate_to(driver, "/signup")
         
         username = generate_unique_username()
@@ -67,10 +76,12 @@ def test_signup_duplicate_id():
         wait_for_url_contains(driver, "/")
         time.sleep(1)
         
+        log_test_step("Clearing session for second attempt")
         clear_session(driver)
         navigate_to(driver, "/signup")
         time.sleep(1)
         
+        log_test_step(f"Second signup attempt - Trying duplicate username: {username}")
         type_text(driver, "input-username", username)
         type_text(driver, "input-password", password)
         type_text(driver, "input-confirm-password", password)

@@ -3,9 +3,11 @@ Run all Selenium UI automation tests.
 """
 import sys
 import os
+import time
 
 sys.path.insert(0, os.path.dirname(__file__))
 
+from utils import logger, log_test_success, log_test_failure
 from test_signup import (
     test_signup_success,
     test_signup_duplicate_id,
@@ -53,37 +55,48 @@ def run_all_tests():
         ("Search - Async Loading", test_search_async_loading),
     ]
     
-    print("\n" + "=" * 60)
-    print("VANILLA COMMUNITY - SELENIUM UI AUTOMATION TESTS")
-    print("=" * 60 + "\n")
+    logger.info("\n" + "=" * 70)
+    logger.info("🚀 VANILLA COMMUNITY - SELENIUM UI AUTOMATION TEST SUITE")
+    logger.info("=" * 70)
+    logger.info(f"Total Tests to Run: {len(all_tests)}\n")
     
-    for test_name, test_func in all_tests:
-        print(f"\nRunning: {test_name}")
-        print("-" * 40)
+    start_time = time.time()
+    
+    for idx, (test_name, test_func) in enumerate(all_tests, 1):
+        test_start = time.time()
+        logger.info(f"\n[{idx}/{len(all_tests)}] Running: {test_name}")
+        logger.info("-" * 70)
         
         try:
             test_func()
+            duration = time.time() - test_start
             tests_passed += 1
-            print(f"PASSED: {test_name}")
+            log_test_success(test_name, duration)
         except Exception as e:
+            duration = time.time() - test_start
             tests_failed += 1
             failed_tests.append((test_name, str(e)))
-            print(f"FAILED: {test_name}")
-            print(f"  Error: {e}")
+            log_test_failure(test_name, str(e), duration)
     
-    print("\n" + "=" * 60)
-    print("TEST RESULTS SUMMARY")
-    print("=" * 60)
-    print(f"\nTotal Tests: {tests_passed + tests_failed}")
-    print(f"Passed: {tests_passed}")
-    print(f"Failed: {tests_failed}")
+    total_duration = time.time() - start_time
+    
+    logger.info("\n" + "=" * 70)
+    logger.info("📊 TEST RESULTS SUMMARY")
+    logger.info("=" * 70)
+    logger.info(f"Total Tests: {tests_passed + tests_failed}")
+    logger.info(f"✓ Passed: {tests_passed}")
+    logger.info(f"✗ Failed: {tests_failed}")
+    logger.info(f"⏱️  Total Duration: {total_duration:.2f}s")
     
     if failed_tests:
-        print("\nFailed Tests:")
+        logger.info("\n❌ Failed Tests Details:")
         for name, error in failed_tests:
-            print(f"  - {name}: {error}")
+            logger.info(f"  - {name}")
+            logger.info(f"    Error: {error}")
+    else:
+        logger.info("\n✅ All tests passed successfully!")
     
-    print("\n" + "=" * 60 + "\n")
+    logger.info("\n" + "=" * 70 + "\n")
     
     return tests_failed == 0
 

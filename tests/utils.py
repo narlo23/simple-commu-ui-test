@@ -3,6 +3,7 @@ Utility functions for Selenium UI automation tests.
 """
 import os
 import time
+import logging
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -15,6 +16,30 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 BASE_URL = os.environ.get("BASE_URL", "http://localhost:5000")
 SCREENSHOT_DIR = os.path.join(os.path.dirname(__file__), "screenshots")
+LOG_DIR = os.path.join(os.path.dirname(__file__), "logs")
+
+
+# Setup logging
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
+
+log_file = os.path.join(LOG_DIR, f"test_run_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(log_file),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
+
+
+def log_test_start(test_name: str):
+    """Log the start of a test."""
+    logger.info(f"{'='*60}")
+    logger.info(f"TEST START: {test_name}")
+    logger.info(f"{'='*60}")
 
 
 def get_driver():
@@ -121,3 +146,19 @@ def clear_session(driver):
         driver.execute_script("sessionStorage.clear();")
     except:
         pass
+
+
+def log_test_step(step_name: str):
+    """Log a test step."""
+    logger.info(f"  ▶ {step_name}")
+
+
+def log_test_success(test_name: str, duration: float):
+    """Log test success."""
+    logger.info(f"✓ PASSED: {test_name} ({duration:.2f}s)")
+
+
+def log_test_failure(test_name: str, error: str, duration: float):
+    """Log test failure."""
+    logger.error(f"✗ FAILED: {test_name} ({duration:.2f}s)")
+    logger.error(f"  Error: {error}")
