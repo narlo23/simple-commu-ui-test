@@ -20,14 +20,14 @@ export default function LoginForm() {
     setError("");
     setIsLoading(true);
 
-    const success = await login(formData.username, formData.password);
+    const result = await login(formData.username, formData.password);
     
     setIsLoading(false);
     
-    if (success) {
+    if (result.success) {
       setLocation("/");
     } else {
-      setError("Invalid username or password. Password must be at least 4 characters.");
+      setError(result.error || "Invalid username or password");
     }
   };
 

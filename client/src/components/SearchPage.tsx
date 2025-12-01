@@ -1,53 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import PostCard, { Post } from "./PostCard";
 import { Search, SearchX } from "lucide-react";
-
-const mockPosts: Post[] = [
-  {
-    id: "1",
-    title: "Getting Started with TypeScript",
-    content: "TypeScript is a typed superset of JavaScript that compiles to plain JavaScript. It offers classes, modules, and interfaces to help you build robust components. In this guide, we'll explore the basics.",
-    author: "developer123",
-    createdAt: "2024-01-15T10:30:00Z",
-    category: "Tutorial",
-  },
-  {
-    id: "2",
-    title: "Best Practices for React Development",
-    content: "React has become one of the most popular libraries for building user interfaces. Learn about component patterns, hooks best practices, and performance optimization techniques.",
-    author: "reactfan",
-    createdAt: "2024-01-14T15:45:00Z",
-    category: "Best Practices",
-  },
-  {
-    id: "3",
-    title: "Introduction to Node.js",
-    content: "Node.js is a powerful JavaScript runtime built on Chrome's V8 engine. It's perfect for building scalable network applications and is widely used for backend development.",
-    author: "nodejsexpert",
-    createdAt: "2024-01-13T09:00:00Z",
-    category: "Tutorial",
-  },
-  {
-    id: "4",
-    title: "CSS Grid Layout Complete Guide",
-    content: "CSS Grid Layout is a two-dimensional layout system for the web. It lets you lay out items in rows and columns and has many features that make building complex layouts straightforward.",
-    author: "cssmaster",
-    createdAt: "2024-01-12T14:20:00Z",
-    category: "CSS",
-  },
-  {
-    id: "5",
-    title: "Understanding JavaScript Promises",
-    content: "Promises are a fundamental concept in modern JavaScript. They represent a value that may be available now, in the future, or never. Master async programming with this comprehensive guide.",
-    author: "asyncdev",
-    createdAt: "2024-01-11T11:15:00Z",
-    category: "JavaScript",
-  },
-];
 
 export default function SearchPage() {
   const [query, setQuery] = useState("");
@@ -63,31 +20,18 @@ export default function SearchPage() {
     setIsLoading(true);
     setHasSearched(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    const filtered = mockPosts.filter(
-      (post) =>
-        post.title.toLowerCase().includes(query.toLowerCase()) ||
-        post.content.toLowerCase().includes(query.toLowerCase()) ||
-        post.author.toLowerCase().includes(query.toLowerCase())
-    );
-
-    setResults(filtered);
-    setIsLoading(false);
-    console.log("Search completed:", { query, resultsCount: filtered.length });
-  };
-
-  useEffect(() => {
-    if (query.trim()) {
-      const timer = setTimeout(() => {
-        handleSearch();
-      }, 300);
-      return () => clearTimeout(timer);
-    } else {
+    try {
+      const response = await fetch(`/api/posts/search?q=${encodeURIComponent(query)}`);
+      if (!response.ok) throw new Error("Search failed");
+      const data = await response.json();
+      setResults(data);
+    } catch (error) {
+      console.error("Search error:", error);
       setResults([]);
-      setHasSearched(false);
+    } finally {
+      setIsLoading(false);
     }
-  }, [query]);
+  };
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">

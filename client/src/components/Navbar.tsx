@@ -14,12 +14,17 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const { user, logout, isAuthenticated } = useAuth();
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
 
   const navLinks = [
     { href: "/", label: "Home", icon: Home },
     { href: "/search", label: "Search", icon: Search },
   ];
+
+  const handleLogout = async () => {
+    await logout();
+    setLocation("/");
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -80,7 +85,7 @@ export default function Navbar() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuItem
-                  onClick={logout}
+                  onClick={handleLogout}
                   className="gap-2 text-destructive focus:text-destructive"
                   data-testid="button-logout"
                 >
