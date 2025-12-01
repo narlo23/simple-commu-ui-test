@@ -3,5 +3,10 @@
     "username": "ZFNHAD",
     "password": "testpass123",
     "id": "0362f3e2-5cb9-43c8-aad7-966db9686ec3"
+  },
+  {
+    "username": "admin",
+    "password": "1234",
+    "id": "659795c9-eda5-4ccb-9173-02698419db8a"
   }
 ]
