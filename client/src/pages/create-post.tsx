@@ -1,12 +1,9 @@
+import { useState } from "react";
 import { useLocation } from "wouter";
 import { useAuth } from "@/components/AuthContext";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { insertPostSchema, type InsertPost } from "@shared/schema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
@@ -18,30 +15,35 @@ export default function CreatePostPage() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [category, setCategory] = useState("");
+
   if (!isAuthenticated) {
     setLocation("/login");
     return null;
   }
 
-  const form = useForm<InsertPost>({
-    resolver: zodResolver(insertPostSchema),
-    defaultValues: {
-      title: "",
-      content: "",
-      category: "",
-    },
-  });
-
   const createMutation = useMutation({
-    mutationFn: async (data: InsertPost) => {
+    mutationFn: async () => {
+      if (!title.trim() || !content.trim()) {
+        throw new Error("Title and content are required");
+      }
+
       const response = await fetch("/api/posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          title: title.trim(),
+          content: content.trim(),
+          category: category.trim() || undefined,
+        }),
         credentials: "include",
       });
+
       if (!response.ok) {
-        throw new Error("Failed to create post");
+        const error = await response.json();
+        throw new Error(error.message || "Failed to create post");
       }
       return response.json();
     },
@@ -53,17 +55,18 @@ export default function CreatePostPage() {
       });
       setLocation(`/post/${post.id}`);
     },
-    onError: () => {
+    onError: (error) => {
       toast({
         title: "Error",
-        description: "Failed to create post",
+        description: error instanceof Error ? error.message : "Failed to create post",
         variant: "destructive",
       });
     },
   });
 
-  const onSubmit = (data: InsertPost) => {
-    createMutation.mutate(data);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    createMutation.mutate();
   };
 
   return (
@@ -83,74 +86,50 @@ export default function CreatePostPage() {
           <CardTitle>Create New Post</CardTitle>
         </CardHeader>
         <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Title</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Post title"
-                        data-testid="input-post-title"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium mb-2">Title</label>
+              <Input
+                placeholder="Post title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                data-testid="input-post-title"
               />
+            </div>
 
-              <FormField
-                control={form.control}
-                name="content"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Content</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Write your post content here..."
-                        className="min-h-64"
-                        data-testid="textarea-post-content"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+            <div>
+              <label className="block text-sm font-medium mb-2">Content</label>
+              <Textarea
+                placeholder="Write your post content here..."
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                className="min-h-64"
+                data-testid="textarea-post-content"
               />
+            </div>
 
-              <FormField
-                control={form.control}
-                name="category"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Category (Optional)</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="e.g., React, JavaScript"
-                        data-testid="input-post-category"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                Category (Optional)
+              </label>
+              <Input
+                placeholder="e.g., React, JavaScript"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                data-testid="input-post-category"
               />
+            </div>
 
-              <div className="flex gap-2">
-                <Button
-                  type="submit"
-                  disabled={createMutation.isPending}
-                  data-testid="button-create-post"
-                >
-                  {createMutation.isPending ? "Creating..." : "Create Post"}
-                </Button>
-              </div>
-            </form>
-          </Form>
+            <div className="flex gap-2">
+              <Button
+                type="submit"
+                disabled={createMutation.isPending}
+                data-testid="button-create-post"
+              >
+                {createMutation.isPending ? "Creating..." : "Create Post"}
+              </Button>
+            </div>
+          </form>
         </CardContent>
       </Card>
     </div>
