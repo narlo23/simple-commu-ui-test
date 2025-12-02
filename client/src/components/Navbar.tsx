@@ -33,7 +33,10 @@ export default function Navbar() {
           <Link href="/" data-testid="link-home-logo">
             <div className="flex items-center gap-2">
               <Users className="h-6 w-6 text-primary" />
-              <span className="text-lg font-semibold">React</span>
+              <div className="flex flex-col">
+                <span className="text-lg font-semibold">React</span>
+                <span className="text-xs text-muted-foreground -mt-1">v1.2</span>
+              </div>
             </div>
           </Link>
           
