@@ -13,7 +13,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 # ========== 설정: 여기서 변수 수정하세요 ==========
-BASE_URL = "https://leecord.site"
+# BASE_URL = "http://localhost:5001" 각 로컬환경에 맞도록 수정
+# BASE_URL = "http://localhost:5000/" 잘못된 예시. 뒤에 /로 붙여서 끝내면 안됨
+BASE_URL = "http://localhost:5000"
 TEST_USERNAME = "admin"           # 테스트할 사용자명 수정
 TEST_PASSWORD = "1234"            # 테스트할 비밀번호 수정
 WAIT_TIMEOUT = 10                 # 요소 로드 대기 시간 (초)
