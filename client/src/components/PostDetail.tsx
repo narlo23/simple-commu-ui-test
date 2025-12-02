@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -16,7 +16,7 @@ interface PostDetailProps {
 
 export default function PostDetail({ post }: PostDetailProps) {
   const { user } = useAuth();
-  const [, navigate] = useNavigate();
+  const [, setLocation] = useLocation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const isAuthor = user?.username === post.author;
@@ -47,7 +47,7 @@ export default function PostDetail({ post }: PostDetailProps) {
         title: "Success",
         description: "Post deleted successfully",
       });
-      navigate("/");
+      setLocation("/");
     },
     onError: () => {
       toast({
@@ -86,7 +86,7 @@ export default function PostDetail({ post }: PostDetailProps) {
                   <Button
                     variant="outline"
                     size="icon"
-                    onClick={() => navigate(`/post/${post.id}/edit`)}
+                    onClick={() => setLocation(`/post/${post.id}/edit`)}
                     data-testid="button-edit-post"
                   >
                     <Edit className="h-4 w-4" />

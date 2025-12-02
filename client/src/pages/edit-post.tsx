@@ -1,4 +1,4 @@
-import { useNavigate, useRoute } from "wouter";
+import { useLocation, useRoute } from "wouter";
 import { useAuth } from "@/components/AuthContext";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,13 +16,13 @@ import type { Post } from "@/components/PostCard";
 
 export default function EditPostPage() {
   const { isAuthenticated, user } = useAuth();
-  const [, navigate] = useNavigate();
+  const [, setLocation] = useLocation();
   const [match, params] = useRoute("/post/:id/edit");
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
   if (!isAuthenticated) {
-    navigate("/login");
+    setLocation("/login");
     return null;
   }
 
@@ -64,7 +64,7 @@ export default function EditPostPage() {
         title: "Success",
         description: "Post updated successfully",
       });
-      navigate(`/post/${updated.id}`);
+      setLocation(`/post/${updated.id}`);
     },
     onError: (error) => {
       toast({
@@ -102,7 +102,7 @@ export default function EditPostPage() {
         <Button
           variant="ghost"
           className="mb-6 gap-2"
-          onClick={() => navigate("/")}
+          onClick={() => setLocation("/")}
           data-testid="button-back-home"
         >
           <ChevronLeft className="h-4 w-4" />
@@ -122,7 +122,7 @@ export default function EditPostPage() {
       <Button
         variant="ghost"
         className="mb-6 gap-2"
-        onClick={() => navigate(`/post/${params?.id}`)}
+        onClick={() => setLocation(`/post/${params?.id}`)}
         data-testid="button-back-post"
       >
         <ChevronLeft className="h-4 w-4" />

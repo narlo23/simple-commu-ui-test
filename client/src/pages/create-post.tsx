@@ -1,4 +1,4 @@
-import { useNavigate } from "wouter";
+import { useLocation } from "wouter";
 import { useAuth } from "@/components/AuthContext";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,12 +14,12 @@ import { ChevronLeft } from "lucide-react";
 
 export default function CreatePostPage() {
   const { isAuthenticated } = useAuth();
-  const [, navigate] = useNavigate();
+  const [, setLocation] = useLocation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
   if (!isAuthenticated) {
-    navigate("/login");
+    setLocation("/login");
     return null;
   }
 
@@ -50,7 +50,7 @@ export default function CreatePostPage() {
         title: "Success",
         description: "Post created successfully",
       });
-      navigate(`/post/${post.id}`);
+      setLocation(`/post/${post.id}`);
     },
     onError: () => {
       toast({
@@ -70,7 +70,7 @@ export default function CreatePostPage() {
       <Button
         variant="ghost"
         className="mb-6 gap-2"
-        onClick={() => navigate("/")}
+        onClick={() => setLocation("/")}
         data-testid="button-back-home"
       >
         <ChevronLeft className="h-4 w-4" />
