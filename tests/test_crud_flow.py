@@ -83,13 +83,28 @@ try:
     submit_button = driver.find_element(By.CSS_SELECTOR, '[data-testid="button-create-post"]')
     submit_button.click()
     
-    time.sleep(3)
-    print("✓ 게시글 제출 완료")
-    
-    # 생성된 게시글의 ID를 현재 URL에서 추출
-    current_url = driver.current_url
-    created_post_id = current_url.split("/post/")[-1]
-    print(f"✓ 생성된 게시글 ID: {created_post_id}")
+    # URL이 /post/{id} 형태로 변경될 때까지 대기 (성공 확인)
+    print("[4-1단계] 게시글 생성 완료 대기 중...")
+    try:
+        # 5초 동안 현재 URL이 /post/ 를 포함할 때까지 대기
+        for i in range(50):  # 10초간 0.2초마다 확인
+            current_url = driver.current_url
+            if "/post/" in current_url and current_url != f"{BASE_URL}/post/create":
+                break
+            time.sleep(0.2)
+        
+        created_post_id = current_url.split("/post/")[-1]
+        print(f"✓ 게시글 제출 완료 및 상세페이지 로드됨")
+        print(f"✓ 생성된 게시글 ID: {created_post_id}")
+    except Exception as e:
+        print(f"✗ 게시글 제출 실패: {str(e)}")
+        # 에러 토스트 메시지 확인
+        try:
+            error_toast = driver.find_element(By.XPATH, "//*[contains(text(), 'Error') or contains(text(), 'Not authenticated')]")
+            print(f"✗ 에러 메시지: {error_toast.text}")
+        except:
+            pass
+        raise
     
     # 5단계: 홈페이지로 돌아가서 생성된 게시글 확인
     print("\n[5단계] 홈페이지에서 생성된 게시글 확인...")
