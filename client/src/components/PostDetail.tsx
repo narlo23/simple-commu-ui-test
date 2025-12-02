@@ -35,6 +35,7 @@ export default function PostDetail({ post }: PostDetailProps) {
     mutationFn: async () => {
       const response = await fetch(`/api/posts/${post.id}`, {
         method: "DELETE",
+        credentials: "include",
       });
       if (!response.ok) {
         throw new Error("Failed to delete post");
