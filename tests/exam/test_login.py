@@ -1,11 +1,12 @@
-from exam_helpers import get_driver, wait_for_url_contains, navigate_to, click_element, get_element_by_testid, check_cookie
+from exam_helpers import get_driver, navigate_to, click_element, get_element_by_testid, wait_for_url_contains, check_cookie
+import constants
 
-USERNAME = "abcd"
-PASSWORD = "1234"
+USERNAME = constants.USERNAME
+PASSWORD = constants.PASSWORD
 
-def signup_success():
-    click_element(driver, "link-signup")
-    print("✅ 회원가입 버튼 클릭, 회원가입 페이지로 이동중")
+def login_success():
+    click_element(driver, "link-login")
+    print("✅ 로그인 버튼 클릭, 로그인 페이지로 이동중")
 
     username = get_element_by_testid(driver, "input-username")
     username.send_keys(USERNAME)
@@ -13,12 +14,9 @@ def signup_success():
     password = get_element_by_testid(driver, "input-password")
     password.send_keys(PASSWORD)
 
-    confirm_password = get_element_by_testid(driver, "input-confirm-password")
-    confirm_password.send_keys(PASSWORD)
+    click_element(driver, "button-login-submit")
+    print("✅ 버튼 클릭: 로그인 요청 전송 및 리다이렉션 시작")
 
-    click_element(driver, "button-signup-submit")
-    print("✅ 버튼 클릭: 회원가입 요청 전송 및 리다이렉션 시작")
-    
     assert wait_for_url_contains(driver, "/"), "❌ 오류: 메인페이지로 이동하지 못했습니다."
     print("✅ URL 검증 성공: 메인 페이지로의 리다이렉션이 완료되었습니다.")
 
@@ -32,9 +30,9 @@ def signup_success():
 if __name__ == "__main__":
     driver = get_driver()
     navigate_to(driver, "/")
-    
+
     try:
-        signup_success()
+        login_success()
     except AssertionError as ae:
         print(f"❗ Assertion 오류 발생: {ae}")
     except Exception as e:
@@ -43,4 +41,3 @@ if __name__ == "__main__":
         print("브라우저를 닫고 있습니다...")
         driver.quit()
         print("✅ 완료")
-
