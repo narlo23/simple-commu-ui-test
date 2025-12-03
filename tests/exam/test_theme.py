@@ -1,4 +1,4 @@
-from exam_helpers import get_driver, navigate_to, save_screenshots, get_local_storage_value, click_element, get_root_html_element
+from exam_helpers import get_driver, navigate_to, save_screenshots, get_local_storage_value, click_element, get_element_by_tagname
 
 def change_theme(driver):
     print("✅ 접속 완료: 기본은 라이트모드")
@@ -8,7 +8,7 @@ def change_theme(driver):
     print("✅ 테마 변경 버튼 클릭: 다크모드로 변경")
     save_screenshots(driver, "dark_mode")
 
-    html_element = get_root_html_element(driver)
+    html_element = get_element_by_tagname(driver, "html")
     print(f"현재 모드: {html_element.get_attribute('class')}")
 
     get_local_storage_value(driver)

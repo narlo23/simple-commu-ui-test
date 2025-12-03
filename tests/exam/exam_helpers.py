@@ -73,8 +73,8 @@ def get_element_by_testid(driver, test_id: str):
     """Get element by data-testid attribute."""
     return driver.find_element(By.CSS_SELECTOR, f'[data-testid="{test_id}"]')
 
-def get_root_html_element(driver):
-    return driver.find_element(By.TAG_NAME, "html")
+def get_element_by_tagname(driver, tag_name: str):
+    return driver.find_element(By.TAG_NAME, tag_name)
 
 def get_post_urls(driver):
     try:
@@ -176,3 +176,11 @@ def extract_and_check_post_data(driver, post_urls, expected_keyword:str):
         is_keyword_in_post = expected_keyword in title or expected_keyword in author or expected_keyword in contents_text
         assert is_keyword_in_post, f"❌ {i+1}번째 게시물 제목/내용에 키워드 '{expected_keyword}'가 없습니다."
         print(f"✅ {i+1}번째 게시물에서 키워드 '{expected_keyword}' 검증 성공")
+
+def count_posts(driver):
+    post_list_container = get_element_by_testid(driver, "container-posts-list")
+    link_elements = post_list_container.find_elements(By.TAG_NAME, "a")
+
+    count = len(link_elements)
+    print(f"✅ 'container-posts-list' 내부에 총 {count}개의 <a> 태그가 확인되었습니다.")
+    return count
