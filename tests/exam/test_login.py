@@ -4,7 +4,7 @@ import constants
 USERNAME = constants.USERNAME
 PASSWORD = constants.PASSWORD
 
-def login_success():
+def login_success(driver):
     click_element(driver, "link-login")
     print("✅ 로그인 버튼 클릭, 로그인 페이지로 이동중")
 

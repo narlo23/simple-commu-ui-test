@@ -3,7 +3,7 @@ import constants
 
 KEYWORD = constants.KEYWORD
 
-def search_process():
+def search_process(driver):
     click_element(driver, "link-nav-search")
 
     assert wait_for_url_contains(driver, "/search"), "❌ 오류: 검색 페이지로 이동하지 못했습니다."

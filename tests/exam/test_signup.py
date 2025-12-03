@@ -3,7 +3,7 @@ from exam_helpers import get_driver, wait_for_url_contains, navigate_to, click_e
 USERNAME = "abcd"
 PASSWORD = "1234"
 
-def signup_success():
+def signup_success(driver):
     click_element(driver, "link-signup")
     print("✅ 회원가입 버튼 클릭, 회원가입 페이지로 이동중")
 
@@ -32,7 +32,7 @@ def signup_success():
 if __name__ == "__main__":
     driver = get_driver()
     navigate_to(driver, "/")
-    
+
     try:
         signup_success()
     except AssertionError as ae:
