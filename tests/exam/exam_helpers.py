@@ -64,6 +64,13 @@ def navigate_to(driver, path: str):
     driver.get(full_url)
     print(f"✅ 접속 시도: {full_url}")
 
+def wait_for_element(driver, test_id: str, timeout: int = 10):
+    """Wait for element with data-testid to be present."""
+    wait = WebDriverWait(driver, timeout)
+    return wait.until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, f'[data-testid="{test_id}"]'))
+    )
+
 def wait_for_url_contains(driver, url_part: str, timeout: int = 10):
     """Wait for URL to contain specified string."""
     wait = WebDriverWait(driver, timeout)
