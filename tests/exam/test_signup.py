@@ -34,7 +34,7 @@ if __name__ == "__main__":
     navigate_to(driver, "/")
 
     try:
-        signup_success()
+        signup_success(driver)
     except AssertionError as ae:
         print(f"❗ Assertion 오류 발생: {ae}")
     except Exception as e:

@@ -25,7 +25,7 @@ if __name__ == "__main__":
     navigate_to(driver, "/")
 
     try:
-        search_process()
+        search_process(driver)
     except AssertionError as ae:
         print(f"❗ Assertion 오류 발생: {ae}")
     except Exception as e:

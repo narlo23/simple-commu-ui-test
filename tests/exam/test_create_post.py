@@ -15,7 +15,7 @@ if __name__ == "__main__":
     navigate_to(driver, "/")
 
     try:
-        create_post_success()
+        create_post_success(driver)
     except AssertionError as ae:
         print(f"❗ Assertion 오류 발생: {ae}")
     except Exception as e:
