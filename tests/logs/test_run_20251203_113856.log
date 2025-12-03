@@ -1,0 +1,119 @@
+2025-12-03 11:38:56,137 - INFO - 
+======================================================================
+2025-12-03 11:38:56,152 - INFO - ======================================================================
+2025-12-03 11:38:56,152 - INFO - Total Tests to Run: 14
+
+2025-12-03 11:38:56,152 - INFO - 
+[1/14] Running: Signup - Success
+2025-12-03 11:38:56,153 - INFO - ----------------------------------------------------------------------
+2025-12-03 11:38:56,153 - INFO - ====== WebDriver manager ======
+2025-12-03 11:38:56,969 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:38:57,010 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:38:57,027 - INFO - Driver [C:\Users\user\.wdm\drivers\chromedriver\win64\142.0.7444.175\chromedriver-win32/chromedriver.exe] found in cache
+2025-12-03 11:39:02,029 - INFO - 
+[2/14] Running: Signup - Duplicate ID
+2025-12-03 11:39:02,029 - INFO - ----------------------------------------------------------------------
+2025-12-03 11:39:02,030 - INFO - ====== WebDriver manager ======
+2025-12-03 11:39:02,825 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:39:02,847 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:39:02,865 - INFO - Driver [C:\Users\user\.wdm\drivers\chromedriver\win64\142.0.7444.175\chromedriver-win32/chromedriver.exe] found in cache
+2025-12-03 11:39:03,931 - INFO -   ¢º First signup attempt - Creating account
+2025-12-03 11:39:05,832 - INFO -   ¢º Clearing session for second attempt
+2025-12-03 11:39:06,978 - INFO -   ¢º Second signup attempt - Trying duplicate username: testuser_1764729544518
+2025-12-03 11:39:11,454 - INFO - 
+[3/14] Running: Signup - Password Mismatch
+2025-12-03 11:39:11,455 - INFO - ----------------------------------------------------------------------
+2025-12-03 11:39:11,455 - INFO - ====== WebDriver manager ======
+2025-12-03 11:39:12,243 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:39:12,259 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:39:12,275 - INFO - Driver [C:\Users\user\.wdm\drivers\chromedriver\win64\142.0.7444.175\chromedriver-win32/chromedriver.exe] found in cache
+2025-12-03 11:39:17,337 - INFO - 
+[4/14] Running: Login - Success
+2025-12-03 11:39:17,337 - INFO - ----------------------------------------------------------------------
+2025-12-03 11:39:17,338 - INFO - ====== WebDriver manager ======
+2025-12-03 11:39:18,102 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:39:18,123 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:39:18,137 - INFO - Driver [C:\Users\user\.wdm\drivers\chromedriver\win64\142.0.7444.175\chromedriver-win32/chromedriver.exe] found in cache
+2025-12-03 11:39:24,801 - INFO - 
+[5/14] Running: Login - Wrong Password
+2025-12-03 11:39:24,801 - INFO - ----------------------------------------------------------------------
+2025-12-03 11:39:24,801 - INFO - ====== WebDriver manager ======
+2025-12-03 11:39:25,571 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:39:25,586 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:39:25,601 - INFO - Driver [C:\Users\user\.wdm\drivers\chromedriver\win64\142.0.7444.175\chromedriver-win32/chromedriver.exe] found in cache
+2025-12-03 11:39:33,098 - INFO - 
+[6/14] Running: Login - Non-existent User
+2025-12-03 11:39:33,098 - INFO - ----------------------------------------------------------------------
+2025-12-03 11:39:33,098 - INFO - ====== WebDriver manager ======
+2025-12-03 11:39:33,928 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:39:33,943 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:39:33,960 - INFO - Driver [C:\Users\user\.wdm\drivers\chromedriver\win64\142.0.7444.175\chromedriver-win32/chromedriver.exe] found in cache
+2025-12-03 11:39:40,075 - INFO - 
+[7/14] Running: Login - Logout
+2025-12-03 11:39:40,075 - INFO - ----------------------------------------------------------------------
+2025-12-03 11:39:40,075 - INFO - ====== WebDriver manager ======
+2025-12-03 11:39:40,863 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:39:40,880 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:39:40,897 - INFO - Driver [C:\Users\user\.wdm\drivers\chromedriver\win64\142.0.7444.175\chromedriver-win32/chromedriver.exe] found in cache
+2025-12-03 11:39:49,091 - INFO - 
+[8/14] Running: Theme - Toggle
+2025-12-03 11:39:49,091 - INFO - ----------------------------------------------------------------------
+2025-12-03 11:39:49,092 - INFO - ====== WebDriver manager ======
+2025-12-03 11:39:49,910 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:39:49,930 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:39:49,944 - INFO - Driver [C:\Users\user\.wdm\drivers\chromedriver\win64\142.0.7444.175\chromedriver-win32/chromedriver.exe] found in cache
+2025-12-03 11:39:55,739 - ERROR -   Error: Theme should change after toggle
+2025-12-03 11:39:55,739 - INFO - 
+[9/14] Running: Theme - Persistence
+2025-12-03 11:39:55,739 - INFO - ----------------------------------------------------------------------
+2025-12-03 11:39:55,739 - INFO - ====== WebDriver manager ======
+2025-12-03 11:39:56,548 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:39:56,565 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:39:56,583 - INFO - Driver [C:\Users\user\.wdm\drivers\chromedriver\win64\142.0.7444.175\chromedriver-win32/chromedriver.exe] found in cache
+2025-12-03 11:40:03,208 - INFO - 
+[10/14] Running: Theme - Different Pages
+2025-12-03 11:40:03,208 - INFO - ----------------------------------------------------------------------
+2025-12-03 11:40:03,208 - INFO - ====== WebDriver manager ======
+2025-12-03 11:40:03,970 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:40:03,988 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:40:04,004 - INFO - Driver [C:\Users\user\.wdm\drivers\chromedriver\win64\142.0.7444.175\chromedriver-win32/chromedriver.exe] found in cache
+2025-12-03 11:40:09,344 - ERROR -   Error: Theme should toggle on /
+2025-12-03 11:40:09,344 - INFO - 
+[11/14] Running: Search - With Results
+2025-12-03 11:40:09,344 - INFO - ----------------------------------------------------------------------
+2025-12-03 11:40:09,344 - INFO - ====== WebDriver manager ======
+2025-12-03 11:40:10,112 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:40:10,128 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:40:10,144 - INFO - Driver [C:\Users\user\.wdm\drivers\chromedriver\win64\142.0.7444.175\chromedriver-win32/chromedriver.exe] found in cache
+2025-12-03 11:40:17,191 - INFO - 
+[12/14] Running: Search - No Results
+2025-12-03 11:40:17,191 - INFO - ----------------------------------------------------------------------
+2025-12-03 11:40:17,192 - INFO - ====== WebDriver manager ======
+2025-12-03 11:40:17,944 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:40:17,961 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:40:17,979 - INFO - Driver [C:\Users\user\.wdm\drivers\chromedriver\win64\142.0.7444.175\chromedriver-win32/chromedriver.exe] found in cache
+2025-12-03 11:40:24,925 - INFO - 
+[13/14] Running: Search - Result Click
+2025-12-03 11:40:24,925 - INFO - ----------------------------------------------------------------------
+2025-12-03 11:40:24,925 - INFO - ====== WebDriver manager ======
+2025-12-03 11:40:25,698 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:40:25,719 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:40:25,736 - INFO - Driver [C:\Users\user\.wdm\drivers\chromedriver\win64\142.0.7444.175\chromedriver-win32/chromedriver.exe] found in cache
+2025-12-03 11:40:33,785 - INFO - 
+[14/14] Running: Search - Async Loading
+2025-12-03 11:40:33,785 - INFO - ----------------------------------------------------------------------
+2025-12-03 11:40:33,785 - INFO - ====== WebDriver manager ======
+2025-12-03 11:40:34,523 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:40:34,540 - INFO - Get LATEST chromedriver version for google-chrome
+2025-12-03 11:40:34,555 - INFO - Driver [C:\Users\user\.wdm\drivers\chromedriver\win64\142.0.7444.175\chromedriver-win32/chromedriver.exe] found in cache
+2025-12-03 11:40:41,605 - INFO - 
+======================================================================
+2025-12-03 11:40:41,605 - INFO - ======================================================================
+2025-12-03 11:40:41,605 - INFO - Total Tests: 14
+2025-12-03 11:40:41,608 - INFO -   - Theme - Toggle
+2025-12-03 11:40:41,608 - INFO -     Error: Theme should change after toggle
+2025-12-03 11:40:41,609 - INFO -   - Theme - Different Pages
+2025-12-03 11:40:41,609 - INFO -     Error: Theme should toggle on /
+2025-12-03 11:40:41,609 - INFO - 
+======================================================================
+
