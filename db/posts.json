@@ -38,5 +38,85 @@
     "author": "asyncdev",
     "createdAt": "2024-01-11T11:15:00Z",
     "category": "JavaScript"
+  },
+  {
+    "id": "6",
+    "title": "Python 기초 문법 정리",
+    "content": "Python은 배우기 쉽고 강력한 프로그래밍 언어입니다. 이 글에서는 변수, 리스트, 딕셔너리, 제어문, 함수 등의 핵심 개념을 설명합니다.\n\n초보자가 흔히 헷갈리는 들여쓰기, 함수 스코프, 자료형 변환 등을 명확하게 정리하여 확실한 기초를 다질 수 있도록 구성했습니다.",
+    "author": "pybeginner",
+    "createdAt": "2024-01-10T10:00:00Z",
+    "category": "Python"
+  },
+  {
+    "id": "7",
+    "title": "Django vs Flask: 어떤 것을 선택해야 할까?",
+    "content": "Python 백엔드 개발에서는 Django와 Flask가 가장 널리 사용됩니다. 두 프레임워크의 차이점, 장단점, 사용 시나리오를 비교해봅니다.\n\nDjango는 대규모 프로젝트에 강점이 있고, Flask는 유연성과 단순함이 장점입니다.",
+    "author": "backendguru",
+    "createdAt": "2024-01-09T09:20:00Z",
+    "category": "백엔드"
+  },
+  {
+    "id": "8",
+    "title": "Git 실전 가이드",
+    "content": "버전 관리는 현대 개발자의 필수 기술입니다. Git의 기본 명령어부터 브랜치 전략, 충돌 해결 방법까지 단계별로 정리했습니다.\n\n이 글을 읽으면 Git Flow와 PR 기반 협업 방식에 대해 쉽게 이해할 수 있습니다.",
+    "author": "gitmaster",
+    "createdAt": "2024-01-08T11:40:00Z",
+    "category": "도구"
+  },
+  {
+    "id": "9",
+    "title": "Next.js로 서버 사이드 렌더링 시작하기",
+    "content": "Next.js는 React 기반 프레임워크로 SEO 최적화와 서버 사이드 렌더링을 쉽게 구현할 수 있습니다.\n\n이 글에서는 페이지 라우팅, getServerSideProps, 정적 페이지 생성 등 핵심 기능을 설명합니다.",
+    "author": "nextdev",
+    "createdAt": "2024-01-07T13:10:00Z",
+    "category": "React"
+  },
+  {
+    "id": "10",
+    "title": "웹 성능 최적화 핵심 가이드",
+    "content": "웹사이트 성능은 사용자 경험에 가장 큰 영향을 미칩니다. 번들 크기 줄이기, 이미지 최적화, 캐싱 전략 등 핵심 성능 개선 기술을 정리했습니다.",
+    "author": "webperf",
+    "createdAt": "2024-01-06T16:00:00Z",
+    "category": "웹 개발"
+  },
+  {
+    "id": "11",
+    "title": "데이터베이스 인덱싱 이해하기",
+    "content": "인덱스는 데이터 검색 속도를 비약적으로 높여주는 데이터베이스의 핵심 기능입니다. B-Tree와 Hash 인덱스의 동작 원리와 실제 적용 사례를 살펴봅니다.",
+    "author": "dbexpert",
+    "createdAt": "2024-01-05T10:30:00Z",
+    "category": "데이터베이스"
+  },
+  {
+    "id": "12",
+    "title": "REST API 설계 모범 사례",
+    "content": "RESTful API는 현대 웹 개발의 중심입니다. 명확한 리소스 구조, 적절한 HTTP 메서드 사용, 응답 표준화 등을 설명하는 실전 설계 가이드입니다.",
+    "author": "apidev",
+    "createdAt": "2024-01-04T12:50:00Z",
+    "category": "API"
+  },
+  {
+    "id": "13",
+    "title": "웹 접근성 기본기 배우기",
+    "content": "웹 접근성은 모든 사용자가 웹을 사용할 수 있도록 보장하는 중요한 개념입니다. ARIA 속성, 키보드 내비게이션, 색 대비 등 핵심 원칙을 소개합니다.",
+    "author": "a11ypro",
+    "createdAt": "2024-01-03T08:45:00Z",
+    "category": "웹 접근성"
+  },
+  {
+    "id": "14",
+    "title": "비동기 프로그래밍 정복하기",
+    "content": "JavaScript와 Python에서 비동기 프로그래밍은 필수 기술입니다. async/await, 이벤트 루프 개념을 시각적으로 이해할 수 있도록 정리했습니다.",
+    "author": "asyncguru",
+    "createdAt": "2024-01-02T17:20:00Z",
+    "category": "비동기"
+  },
+  {
+    "id": "15",
+    "title": "AI 시대의 개발자 로드맵",
+    "content": "AI 도구가 등장하면서 개발자의 역할도 변화하고 있습니다. AI 코딩 도구 활용법, 데이터 중심 사고, 자동화 역량 강화 등 앞으로의 개발자 로드맵을 정리했습니다.",
+    "author": "futuredev",
+    "createdAt": "2024-01-01T10:00:00Z",
+    "category": "AI"
   }
 ]

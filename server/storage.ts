@@ -50,6 +50,8 @@ export interface IStorage {
   getPost(id: string): Promise<Post | undefined>;
   searchPosts(query: string): Promise<Post[]>;
   createPost(post: InsertPost): Promise<Post>;
+  updatePost(id: string, post: Partial<InsertPost>): Promise<Post | undefined>;
+  deletePost(id: string): Promise<boolean>;
 }
 
 export class JsonStorage implements IStorage {
@@ -107,6 +109,30 @@ export class JsonStorage implements IStorage {
     posts.push(post);
     writePosts(posts);
     return post;
+  }
+
+  async updatePost(id: string, updates: Partial<InsertPost>): Promise<Post | undefined> {
+    const posts = readPosts();
+    const index = posts.findIndex((p) => p.id === id);
+    if (index === -1) return undefined;
+    
+    const updated: Post = {
+      ...posts[index],
+      ...updates,
+    };
+    posts[index] = updated;
+    writePosts(posts);
+    return updated;
+  }
+
+  async deletePost(id: string): Promise<boolean> {
+    const posts = readPosts();
+    const index = posts.findIndex((p) => p.id === id);
+    if (index === -1) return false;
+    
+    posts.splice(index, 1);
+    writePosts(posts);
+    return true;
   }
 }
 

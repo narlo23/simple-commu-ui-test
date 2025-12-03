@@ -12,6 +12,8 @@ import Login from "@/pages/login";
 import Signup from "@/pages/signup";
 import Search from "@/pages/search";
 import PostDetailPage from "@/pages/post-detail";
+import CreatePostPage from "@/pages/create-post";
+import EditPostPage from "@/pages/edit-post";
 
 function Router() {
   return (
@@ -20,6 +22,8 @@ function Router() {
       <Route path="/login" component={Login} />
       <Route path="/signup" component={Signup} />
       <Route path="/search" component={Search} />
+      <Route path="/post/create" component={CreatePostPage} />
+      <Route path="/post/:id/edit" component={EditPostPage} />
       <Route path="/post/:id" component={PostDetailPage} />
       <Route component={NotFound} />
     </Switch>

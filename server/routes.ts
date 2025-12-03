@@ -2,7 +2,7 @@ import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import session from "express-session";
 import { storage } from "./storage";
-import { insertUserSchema, loginSchema } from "@shared/schema";
+import { insertUserSchema, loginSchema, insertPostSchema } from "@shared/schema";
 
 declare module "express-session" {
   interface SessionData {
@@ -23,6 +23,7 @@ export async function registerRoutes(
       cookie: {
         secure: process.env.NODE_ENV === "production",
         httpOnly: true,
+        sameSite: "lax",
         maxAge: 24 * 60 * 60 * 1000,
       },
     })
@@ -142,6 +143,84 @@ export async function registerRoutes(
       return res.json(post);
     } catch (error) {
       console.error("Get post error:", error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.post("/api/posts", async (req: Request, res: Response) => {
+    try {
+      if (!req.session.userId) {
+        return res.status(401).json({ message: "Not authenticated" });
+      }
+
+      const parsed = insertPostSchema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ 
+          message: parsed.error.errors[0]?.message || "Invalid input" 
+        });
+      }
+
+      const post = await storage.createPost({
+        ...parsed.data,
+        author: req.session.username || "Anonymous",
+      });
+
+      return res.status(201).json(post);
+    } catch (error) {
+      console.error("Create post error:", error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.put("/api/posts/:id", async (req: Request, res: Response) => {
+    try {
+      if (!req.session.userId) {
+        return res.status(401).json({ message: "Not authenticated" });
+      }
+
+      const post = await storage.getPost(req.params.id);
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+
+      if (post.author !== req.session.username) {
+        return res.status(403).json({ message: "Only author can edit this post" });
+      }
+
+      const parsed = insertPostSchema.partial().safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ 
+          message: parsed.error.errors[0]?.message || "Invalid input" 
+        });
+      }
+
+      const updated = await storage.updatePost(req.params.id, parsed.data);
+      return res.json(updated);
+    } catch (error) {
+      console.error("Update post error:", error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.delete("/api/posts/:id", async (req: Request, res: Response) => {
+    try {
+      if (!req.session.userId) {
+        return res.status(401).json({ message: "Not authenticated" });
+      }
+
+      const post = await storage.getPost(req.params.id);
+      if (!post) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+
+      if (post.author !== req.session.username) {
+        return res.status(403).json({ message: "Only author can delete this post" });
+      }
+
+      await storage.deletePost(req.params.id);
+      return res.json({ message: "Post deleted successfully" });
+    } catch (error) {
+      console.error("Delete post error:", error);
       return res.status(500).json({ message: "Internal server error" });
     }
   });
